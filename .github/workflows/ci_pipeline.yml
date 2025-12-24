@@ -50,4 +50,4 @@ jobs:
           DB_DATABASE: MicroshopOrdersF
           DB_USER: sa
           DB_PASSWORD: TestPass123!
-        run: pytest tests
+        run: pytest
