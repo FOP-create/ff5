@@ -25,7 +25,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Install ODBC & Python
         run: |
 #          curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
