@@ -12,45 +12,45 @@ on:
     branches: ["main"]
 
 jobs:
-  # --- РАБОТА 1: ТЕСТИРОВАНИЕ (Как в прошлой работе) ---!!
-#  tests:
-#    runs-on: ubuntu-latest
-#    services:
-#      sqlserver:
-#        image: mcr.microsoft.com/mssql/server:2019-latest
-#        ports: [1433:1433]
-#        env:
-#          ACCEPT_EULA: Y
-#          SA_PASSWORD: TestPass123!
-#
-#    steps:
-#        - uses: actions/checkout@v3
-#        - name: Install ODBC & Python
-#          run: |
-#            curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-#            curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
-#            sudo apt-get update
-#            sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev
-#
-#        - uses: actions/setup-python@v4
-#          with:
-#            python-version: "3.9"
-#
-#        - run: pip install -r requirements.txt
-#
-#        - name: Wait & Init DB
-#          run: |
-#            sleep 15
-#            /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P TestPass123! -Q "CREATE DATABASE MicroshopOrders"
-#            /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -d MicroshopOrders -U sa -P TestPass123! -Q "CREATE TABLE Orders (id INT PRIMARY KEY IDENTITY(1,1), product_id INT, customer_id INT, quantity INT)"
-#
-#        - name: Run Tests
-#          env:
-#            DB_SERVER: 127.0.0.1
-#            DB_DATABASE: MicroshopOrders
-#            DB_USER: sa
-#            DB_PASSWORD: TestPass123!
-#          run: pytest tests/
+   --- РАБОТА 1: ТЕСТИРОВАНИЕ (Как в прошлой работе) ---!!
+  tests:
+    runs-on: ubuntu-latest
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports: [1433:1433]
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: TestPass123!
+
+    steps:
+        - uses: actions/checkout@v3
+        - name: Install ODBC & Python
+          run: |
+            curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+            curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+            sudo apt-get update
+            sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev
+
+        - uses: actions/setup-python@v4
+          with:
+            python-version: "3.9"
+
+        - run: pip install -r requirements.txt
+
+        - name: Wait & Init DB
+          run: |
+            sleep 15
+            /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -U sa -P TestPass123! -Q "CREATE DATABASE MicroshopOrders"
+            /opt/mssql-tools/bin/sqlcmd -S 127.0.0.1 -d MicroshopOrders -U sa -P TestPass123! -Q "CREATE TABLE Orders (id INT PRIMARY KEY IDENTITY(1,1), product_id INT, customer_id INT, quantity INT)"
+
+        - name: Run Tests
+          env:
+            DB_SERVER: 127.0.0.1
+            DB_DATABASE: MicroshopOrders
+            DB_USER: sa
+            DB_PASSWORD: TestPass123!
+          run: pytest tests/
 
   # --- РАБОТА 2: СБОРКА И РЕЛИЗ (Новая часть) ---
   build-and-release:
